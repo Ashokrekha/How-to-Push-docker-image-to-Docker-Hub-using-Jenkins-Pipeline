@@ -11,14 +11,14 @@ pipeline{
 	    stage('gitclone') {
 
 			steps {
-				git 'https://github.com/Ashokrekha/nodeapp_test.git'
+				git branch: 'main', url: 'https://github.com/Ashokrekha/live01.git'
 			}
 		}
 
 		stage('Build') {
 
 			steps {
-				sh 'docker build -t ashok223/nodeapp_test:latest .'
+				sh 'docker build -t ashok223/project-1a .'
 			}
 		}
 
@@ -32,13 +32,13 @@ pipeline{
 		stage('Push') {
 
 			steps {
-				sh 'docker push ashok223/nodeapp_test:latest'
+				sh 'docker push ashok223/project-1a'
 			}
 		}
 		stage('deploy') {
 
 			steps {
-				sh 'docker run -d --name nodeapp ashok223/nodeapp_test:latest'
+				sh 'docker run -d -p 8081:8080 --name project-1a ashok223/project-1a'
 			}
 		}
 	}
